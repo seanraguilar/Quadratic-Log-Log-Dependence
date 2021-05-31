@@ -1,0 +1,228 @@
+\documentclass{article}
+\begin{document}
+\title{Why Quadratic Log-Log Dependence Is Ubiquitous And What Next}
+\author{Sean R. Aguilar$^1$, Vladik Kreinovich$^1$, and Uyen Pham$^2$\\
+$^1$Department of Computer Science\\ University of Texas at El
+Paso\\500 W. University\\ El Paso, TX 79968,
+USA\\sraguilar4@miners.utep.edu, vladik@utep.edu\\ $^2$University
+of Economics and Law and\\John Von Neumann Institute\\Ho Chi Minh
+City, Vietnam\\uyenph@uel.edu.vn}
+
+\date{}
+\maketitle
+
+\begin{abstract}
+In many real-life situations ranging from financial to volcanic data,
+growth is described either by a power law -- which is linear in log-log scale, or by
+a quadratic dependence in the log-log scale. In this paper, we use natural scale invariance
+requirement to explain the ubiquity of such dependencies. We also explain what should be a
+reasonable choice of the next model, if quadratic turns out to be not too accurate: it turns out that
+under scale invariance, the next class of models are cubic dependencies in the log-log scale, then
+fourth order dependencies, etc.
+\end{abstract}
+
+\section{Formulation of the Problem}
+
+\noindent{\bf Predictions: a typical situation.} One of the main objective of science and
+engineering is to predict the future state of the world -- i.e., the future values of the
+quantities that describe this state -- and to come up with measures that lead to the most
+favorable future state. For example, we want to predict tomorrow's weather -- and if it will
+be catastrophic in a given area, we need to plan corresponding closings and, if needed, evacuations.
+We want to predict next year's GDP -- and if the current trends predict a crisis, we want to come
+up with measures that would prevent this crisis -- or at least decrease its severity.
+
+In some situations,
+we can predict the future values of some quantities with high accuracy.
+For example, we can predict Solar eclipses centuries ahead.
+
+However, such situations are rare. In most real-life situations, we cannot make exact
+predictions: e.g., when we predict the weather, there are many factors that affect
+tomorrow's weather and that we, at present, do not know. In such situations,
+we can predict, at best, the probabilities of future values of the corresponding quantity.
+These probabilities can be described, e.g., by the probability density function (pdf) $\rho(x)$.
+Such situations are typical in economics and finance, they are also typical in geosciences -- e.g., in predicting
+volcanic activity, they are typical in many other application areas.
+\medskip
+
+\noindent{\bf Stationary vs. non-stationary situations.} In some cases -- e.g., in celestial mechanics or,
+for a reasonably short period of time, in weather prediction -- the corresponding probabilities remain
+the same day after day and year after year. So, the probability density function $\rho_t(x)$ remains the same for all moments of time $t$:
+$\rho_t(x)=\rho(x).$
+
+However, in many other cases, the situation changes with time: on average, the values $x$ grow with time.
+This happens with economic characteristics such as GDP or stock prices, this happens with
+volcanic activity when the volcano becomes more and more active. In many such cases, the shape of the
+probability distribution remains the same, but the scale changes. In other words, at each moment of time $t$,
+the distribution of $x$ is similar to the initial ($t=1$) distribution of the quantity $\displaystyle\frac{x}{C(t)}$ for some
+increasing function $C(t)$, i.e., $\rho_t(x)$ should be proportional to $\rho_1\left(\displaystyle\frac{x}{C(t)}\right)$. The coefficient of proportionality can be easily found from the condition that the overall probability should be equal to 1, i.e., that $\int \rho_t(x)\,dx=1$. Thus, we get
+$$\rho_t(x)=\frac{1}{C(t)}\cdot \rho\left(\frac{x}{C(t)}\right).\eqno{(1)}$$
+\medskip
+
+\noindent{\bf How $C(t)$ depends on time: empirical fact.} In many practical situations, the growth $C(t)$
+is described by the power law:
+$$C(t)=A\cdot t^b,\eqno{(2)}$$ for some constants $A$ and $b$. If we take the logarithm of both sides of this formula, we can conclude that
+in the log-log scale, the power law becomes a linear dependence:
+$$\ln(C(t))=b\cdot \ln(t)+\ln(A).\eqno{(3)}$$
+In other cases, we have a more complex dependence $$C(t)=A\cdot t^{b(t)}\eqno{(4)}$$ where $$b(t)=b_0+b_1\cdot \ln(t).\eqno{(5)}$$
+In this case, in log-log-scale, we have
+$$\ln(C(t))=b(t)\cdot \ln(t)+\ln(A)=b_0\cdot \ln(t)+b_1\cdot (\ln(t))^2+\ln(A).\eqno{(6)}$$
+In other words, we have a quadratic log-log dependence, of which the linear log-log dependence (3) is a particular case
+corresponding to $b_1=0$.
+
+Such dependencies is really ubiquitous: e.g., an empirical analysis provided in \cite{Mariani 2020} have shown that
+many real-life dependencies, ranging from economic to volcanic data, follow these formulas. This naturally
+leads to the following questions.
+\medskip
+\newpage
+
+\noindent{\bf Natural questions.}
+\begin{itemize}
+\item How can we explain the ubiquity of the dependence (4)-(5)?
+\item When the match with this formula is not perfect, what more accurate formula should we try?
+\end{itemize}
+In this paper, we provide answers to both questions.
+
+\section{Analysis of the Problem: Why Power Law?}
+
+\noindent{\bf Why power law.} In many case, the dependence of $C(t)$ on $t$ is described by the power law.
+So, before we analyze the more general question of why the general dependence (4)-(5) is ubiquitous,
+let us analyze why power law is frequently observed.
+\medskip
+
+\noindent{\bf Scale-invariance: idea.} We are interested in learning how the growth function $C(t)$ depends on time $t$.
+In our analysis, we use numerical values of $C(t)$ and numerical values of time $t$. Numerical values of time
+depend on the measuring unit: we get different values if we use years, quarters, months, days, etc. If we replace
+the original unit with the one which is $\lambda$ times smaller, then all numerical value of time $t$ are replaced
+with new values $\lambda\cdot t$. For example, if we replace years with months, then in the new units, the period of 2 years
+becomes $12\cdot 2=24$ months.
+
+In many cases, we do not have a preferred unit for measuring time. In such situations, it is reasonable to
+require that the dependence between $C$ and $t$ remains the same if we change the unit for measuring time.
+This requirement is known as {\it scale invariance}.
+
+The requirement of scale-invariance is typical in physics: e.g., the formula $d=v\cdot t$ describing the relation between
+distance $d$, velocity $v$, and time $t$ remains true no matter what units we select for measuring time, e.g., hours or seconds.
+
+Of course, we cannot simply assume that the value $C(t)$ remains the same: the growth in two years is clearly different from the
+growth in two months. This can be easily explained on the example of the above physics formula: if we change the unit for time, then, for the formula to remain valid, we need to also appropriately change the units for other quantities: e.g., replace the velocity unit from km/hour to km/sec. In our cases, this means that if we change a unit for time, then the formula $C=C(t)$ should remain valid if we also appropriately change the unit for $C$, into a new unit which is $\mu$ times smaller, for some $\mu$ depending on $\lambda$.
+
+In other words, if we have $$C=C(t),\eqno{(7)}$$ then, for every $\lambda$, we should also have $$C'=C(t'),\eqno{(8)}$$
+where $$C'=\mu(\lambda)\cdot C\mbox{  and  }t'=\lambda\cdot t.\eqno{(9)}$$
+\medskip
+
+\noindent{\bf Scale-invariance explains power law.}
+Substituting expressions (9) for $C'$ and $t'$ into the formula (8), we conclude that $\mu(\lambda)\cdot C=C(\lambda\cdot t).$ Substituting the expression (7) for $C$ into this formula, we conclude that
+$$C(\lambda\cdot t)=\mu(\lambda)\cdot C(t).\eqno{(10)}$$
+In real-life, the dependencies are usually continuous, and for continuous functions, it is known that all solutions of the function equation (10) have the form $C(t)=A\cdot t^b$; see, e.g., \cite{Aczel 2008}.
+
+Thus, we indeed have a natural explanation for the power law.
+
+\section{How to Explain Quadratic Log-Log Dependence}
+
+\noindent{\bf Main idea.} As we have mentioned earlier, the main reason why the real-life processes are probabilistic is that
+the actual value $x(t)$ depends also on some characteristics that we do not know. In particular, this means that the value $C(t)$ also depends on such characteristics $y_1,\ldots,y_n$: $C=C(t,y_1,\ldots,y_n)$.
+
+Let us first consider the simplest such case, when we consider only the dependence of one such characteristics $y_1$, then $C=C(t,y_1)$.
+\medskip
+
+\noindent{\bf Let us apply scale-invariance to this situation.} Now, in addition to time $t$, we have another quantity $y_1$ for which we can also
+select different measuring units. It is therefore reasonable to require that no matter how we change both unit for $t$ and unit for $y_1$,
+we will get the same dependence.
+
+In precise terms, for every $\lambda>0$ and $\lambda_1>0$, there exists a value $\mu(\lambda,\lambda_1)$ such that if $$C=C(t,y_1),\eqno{(11)}$$ then
+$$C'=C(t',y'_1),\eqno{(12)}$$ where $$t'=\lambda\cdot t,\ \  y'_1=\lambda\cdot y_1,\ \  C'=\mu(\lambda,\lambda_1)\cdot C.\eqno{(13)}$$
+\medskip
+
+\noindent{\bf Let us analyze this situation.} Substituting the expressions (13) into the formula (12), we conclude that
+$$C(\lambda\cdot t,\lambda_1\cdot y_1)=\mu(\lambda,\lambda_1)\cdot C.\eqno{(14)}$$ Substituting the expression (11) for $C$ into the formula (14), we get
+$$C(\lambda\cdot t,\lambda_1\cdot y_1)=\mu(\lambda,\lambda_1)\cdot C(t,y_1).\eqno{(15)}$$
+For each $y_1$, by taking $\lambda_1=1$, we conclude that
+$$C(\lambda\cdot t,y_1)=\mu(\lambda,1)\cdot C(t,y_1).\eqno{(16)}$$
+Thus, for each $y_1$, the function $C_{y_1}(t)\stackrel{\rm def}{=}C(t,y_1)$ satisfies the formula (10). Thus, based on the result cited in the previous section, we have
+$$C_{y_1}(t)=C(t,y_1)=A(y_1)\cdot t^{b(y_1)},\eqno{(17)}$$ for some $A$ and $b$ depending on $y_1$. In particular, in log-log scale, we get
+$$\ln(C(t,y_1))=b(y_1)\cdot \ln(t)+\ln(A(y_1)).\eqno{(18)}$$
+
+Similarly, for every $t$, we can take $\lambda=1$ and get
+$$C(t,\lambda_1\cdot y)=\mu(1,\lambda_1)\cdot C(t,y_1).\eqno{(19)}$$
+Thus, for each $t$, the function $C_{t}(y_1)\stackrel{\rm def}{=}C(t,y_1)$ satisfies the formula (10). Thus, based on the result cited in the previous section, we have
+$$C_{t}(y_1)=C(t,y_1)=A'(t)\cdot y_1^{b'(t)},\eqno{(20)}$$ for some $A'$ and $b'$ depending on $t$. In particular, in log-log scale, we get
+$$\ln(C(t,y_1))=b'(t)\cdot \ln(y_1)+\ln(A'(t)).\eqno{(21)}$$
+
+The formulas (18) and (21) describe the same expression $\ln(C(t,y_1))$. By equating these expressions for two different
+values $t_1<t_2$, we conclude that
+$$b(y_1)\cdot \ln(t_1)+\ln(A(y_1))=b'(t_1)\cdot \ln(y_1)+\ln(A'(t_1));\eqno{(22)}$$
+$$b(y_1)\cdot \ln(t_2)+\ln(A(y_1))=b'(t_2)\cdot \ln(y_1)+\ln(A'(t_2)).\eqno{(23)}$$
+Subtracting (22) from (23), we get
+$$b(y_1)\cdot (\ln(t_2)-\ln(t_1))=(b'(t_2)-b'(t_1))\cdot \ln(y_1)+(\ln(A'(t_2))-\ln(A'(t_1)).\eqno{(24)}$$
+So, by dividing both sides by the difference $\ln(t_2)-\ln(t_1)$, we get
+$$b(y_1)=c_1\cdot \ln(y_1)+c_2,\eqno{(25)}$$
+where we denoted $$c_1=\frac{b'(t_2)-b'(t_1)}{\ln(t_2)-\ln(t_1)}\mbox{  and  }
+c_2=\frac{\ln(A'(t_2))-\ln(A'(t_1))}{\ln(t_2)-\ln(t_1)}.\eqno{(26)}$$
+
+Similarly, if we multiply (23) by $\ln(t_1)$, (22) by $\ln(t_2)$, and subtract the results, we get
+$$\ln(A(y_1))\cdot (\ln(t_2)-\ln(t_1))=(b'(t_2)\cdot \ln(t_1)-b'(t_1)\cdot \ln(t_2))\cdot \ln(y_1)+$$
+$$(\ln(A'(t_2))\cdot \ln(t_1)-\ln(A'(t_1))\cdot \ln(t_2)),\eqno{(27)}$$
+hence
+$$\ln(A(y_1))=c_3\cdot \ln(y_1)+c_4,\eqno{(28)}$$
+where we denoted
+$$c_3=\frac{b'(t_2)\cdot \ln(t_1)-b'(t_1)\cdot \ln(t_2)}{\ln(t_2)-\ln(t_1)}\eqno{(29{\rm a})}$$
+and
+$$c_4=\frac{\ln(A'(t_2))\cdot \ln(t_1)-\ln(A'(t_1))\cdot \ln(t_2)}{\ln(t_2)-\ln(t_1)}.\eqno{(29{\rm b})}$$
+
+Substituting the expressions (25) and (28) into the formula (18), we conclude that
+$$\ln(C(t,y_1))=(c_1\cdot \ln(y_1)+c_2)\cdot \ln(t)+(c_3\cdot \ln(y_1)+c_4)=$$
+$$c_4+c_2\cdot \ln(t)+c_3\cdot \ln(y_1)+c_1\cdot \ln(t)\cdot \ln(y_1).\eqno{(30)}$$
+
+If we now assume that the dependence of $y_1$ on $t$ is also scale-invariant, then the result
+of the previous section shows that
+$$y_1=A''\cdot t^{b''}$$ for some $A''$ and $b''$, i.e., in log-log form,
+$$\ln(y_1)=b''\cdot \ln(t)+\ln(A'').\eqno{(31)}$$
+Substituting the expression (31) into the formula (30), we get
+$$\ln(C(t))=\ln(C(t,y_1(t)))=C_0+C_1\cdot \ln(t)+C_2\cdot (\ln(t))^2,\eqno{(32)}$$
+where $$C_0=c_4+c_3\cdot \ln(A''),\ \  C_1=c_2+c_3\cdot b''+c_1\cdot \ln(A''),\ \
+C_2=c_1\cdot b''.\eqno{(33)}$$
+Thus, we indeed explained the quadratic log-log dependence!
+
+\section{What Next?}
+
+\noindent{\bf Let us use scale-invariance.}
+In general, we have a dependence
+$$C=C(t,y_1,\ldots,y_n),\eqno{(34)}$$ on $n\ge 1$ auxiliary quantities. In this general case, scale-invariance means
+for every $\lambda>0$ and for all possible values $\lambda_1>0$, \ldots, $\lambda_n$, there exists a value $\mu(\lambda,\lambda_1,\ldots,\lambda_n)$ such that if (34) is satisfied, then
+$$C'=C(t',y'_1,\ldots,y'_n),\eqno{(35)}$$ where $$t'=\lambda\cdot t,\ \  y'_1=\lambda\cdot y_1,\ldots,
+y'_n=\lambda\cdot y_n,\ \ C'=\mu(\lambda,\lambda_1,\ldots,\lambda_n)\cdot C.\eqno{(36)}$$
+\medskip
+
+\noindent{\bf What we can derive from scale-invariance.}
+Similar to the previous section, we can thus conclude that the expression $\ln(C(t,y_1,\ldots,y_n))$ is linear in $\ln(t)$, linear in $\ln(y_1)$, \ldots, and
+linear in $\ln(y_n)$. Thus, it is a multi-linear function:
+$$\ln(C(t,y_1,\ldots,y_n))=c_0+c_t\cdot \ln(t)+\sum_{i=1}^n c_i\cdot \ln(y_i)+$$
+$$\sum_{i=1}^n c_{t,i}\cdot \ln(t)\cdot \ln(y_i)+\sum_{i<j} c_{i,j}\cdot \ln(y_i)\cdot \ln(y_j)+\ldots+$$ $$c_{t,1,\ldots,n}\cdot \ln(t)\cdot \ln(y_1)\cdot \ldots\cdot \ln(y_n).\eqno{(37)}$$
+
+If we assume that the dependence of each auxiliary quantity $y_i$ on $t$ is also scale-invariant, then we get
+$$\ln(y_i)=b''_i\cdot \ln(t)+\ln(A''_i)\eqno{(38)}$$ for some values $b''_i$ and $A''_i$. Substituting the expressions (38) into the formula
+(37), we conclude that
+$$\ln(C(t))=C_0+C_1\cdot \ln(t)+C_2\cdot (\ln(t))^2+\ldots+C_{n+1}\cdot (\ln(t))^{n+1}.\eqno{(39)}$$
+\medskip
+
+\noindent{\bf Resulting recommendation.} So, if quadratic log-log dependence (corresponding to $n=1$) is too inaccurate, we need to try cubic log-log dependence (corresponding to $n=2$), then, if needed, fourth order log-log dependence corresponding to $n=3$, etc.
+
+\section*{Acknowledgments}
+
+This work was supported in part by the National Science Foundation
+grants 1623190 (A Model of Change for Preparing a New Generation
+for Professional Practice in Computer Science) and HRD-1242122
+(Cyber-ShARE Center of Excellence).
+
+\begin{thebibliography}{9}
+
+\bibitem{Aczel 2008}
+J. Acz\'el and J. Dhombres, {\it Functional Equations in Several
+Variables}, Cambridge University Press, 2008.
+
+\bibitem{Mariani 2020} M. C. Mariani, P. K. Asante, M. A. M. Bhuyian, M. P. Beccar-Varela, S.~Jaroszewicz, and O. K. Tweneboah,
+``Long-range correlations and characterization of financial and volcanic time series'', {\it Mathematics}, 2020, Vol.~2020,
+No. 8, Paper 441.
+
+\end{thebibliography}
+\end{document}
